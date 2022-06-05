@@ -1,0 +1,21 @@
+.container {
+    padding: 30px;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    width: calc((100% - 120px) / 5);
+    margin-left: 15px;
+}
+
+.title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 1.87;
+}

@@ -1,0 +1,16 @@
+.btn {
+    margin: 15px 0 15px 30px;
+    width: 100px;
+    border-radius: 4px;
+    border-style: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    background-color: pink;
+    color: black;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.87;
+    text-align: center;
+    letter-spacing: 0.06em;
+}
