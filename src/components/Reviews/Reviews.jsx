@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
+import { useParams } from 'react-router-dom';
 import { getMovieReviews } from '../../shared/services/API';
 import styles from './reviews.module.css';
 
@@ -15,9 +15,9 @@ const Reviews = () => {
 
   useEffect(() => {
     const fetchCast = async () => {
+      setReviews(prevState => ({ ...prevState, loading: true }));
+      const result = await getMovieReviews(id);
       try {
-        setReviews(prevState => ({ ...prevState, loading: true }));
-        const result = await getMovieReviews(id);
         setReviews(prevState => ({
           ...prevState,
           items: result.results,
@@ -34,21 +34,27 @@ const Reviews = () => {
     fetchCast();
   }, [id]);
 
-  const elements = reviews.items.map(item => (
-    <li key={item.id}>
-      <p className={styles.author}>Author: {item.author}</p>
-      <p>{item.content}</p>
-    </li>
-  ));
-
   const { loading, error, items } = reviews;
+
+  const elements = items.map(({ author, content, id }) => {
+    return (
+      <li className={styles.item} key={id}>
+        <p className={styles.title}>Author: {author}</p>
+
+        <p className={styles.text}>{content}</p>
+      </li>
+    );
+  });
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Reviews</h3>
+      {items.length > 0 ? (
+        <ul className={styles.list}>{elements}</ul>
+      ) : (
+        <p>Sorry, we didn't find info about this film.</p>
+      )}
       {loading && <p>...loading</p>}
-      {error && <p>Sorry, we didn't find info about this film.</p>}
-      {items && <ul className={styles.list}>{elements}</ul>}
+      {error && <p>{error}</p>}
     </div>
   );
 };
